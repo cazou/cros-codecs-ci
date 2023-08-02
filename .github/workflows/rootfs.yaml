@@ -13,9 +13,10 @@ jobs:
   build-rootfs:
     runs-on: ubuntu-latest
     steps:
+      - name: Update apt
+        run: sudo apt-get update
       - name: Install kvm deps
-        run: sudo apt-get update && \
-             apt-get install -y cpu-checker qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
+        run: sudo apt-get install -y cpu-checker qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
       - uses: actions/checkout@v3
         with:
           repository: 'cazou/cros-codecs-ci'
