@@ -1,0 +1,19 @@
+name: Run LAVA tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-rootfs:
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/godebos/debos:latest
+      volumes:
+        - ${PWD}:/recipe
+      options: -w /recipes --security-opt label=disabled -u $(id -u):$(id -g) --group-add=$(getent group kvm | cut -d : -f 3) --device /dev/kvm --cap-add=SYS_PTRACE --cap-add=SYS_ADMIN
+    steps:
+      - name: build-rootfs
+        run: debos/rootfs.yaml
