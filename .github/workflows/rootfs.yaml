@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install kvm deps
-      - run: sudo apt update && \
+        run: sudo apt update && \
              sudo apt install -y cpu-checker qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
       - uses: actions/checkout@v3
         with:
