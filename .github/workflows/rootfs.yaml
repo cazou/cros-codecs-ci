@@ -15,7 +15,7 @@ jobs:
         - /home/runner/work:/recipe
       options: "-w /recipes --security-opt label=disabled --cap-add=SYS_PTRACE --cap-add=SYS_ADMIN"
     steps:
-      - name: Install dependencies
-        run: sudo apt-get install user-mode-linux
+#      - name: Install dependencies
+#        run: sudo apt-get install user-mode-linux
       - name: Build rootfs
         run: debos debos/rootfs.yaml
