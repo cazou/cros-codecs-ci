@@ -14,8 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: docker.io/godebos/debos:latest
-      volumes:
-        - /home/runner/work:/recipe
       options: >-
         --security-opt label=disable
         --cap-add=SYS_PTRACE
