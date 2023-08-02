@@ -17,6 +17,7 @@ jobs:
       options: >-
         --security-opt label=disable
         --cap-add=SYS_PTRACE
+        --cap-add=SYS_ADMIN
         --tmpfs /scratch:exec
     steps:
       - uses: actions/checkout@v3
@@ -25,4 +26,4 @@ jobs:
       - name: Create output directory
         run: mkdir out
       - name: Build rootfs
-        run: cd out && debos --print-recipe -v --show-boot --disable-fakemachine ../debos/rootfs.yaml
+        run: cd out && debos --print-recipe -v --show-boot ../debos/rootfs.yaml
