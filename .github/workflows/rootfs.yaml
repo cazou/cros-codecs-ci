@@ -1,10 +1,13 @@
-name: Run LAVA tests
+name: Build rootfs
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+
+env:
+  TMP: '/scratch'
 
 jobs:
   build-rootfs:
@@ -13,12 +16,15 @@ jobs:
       image: docker.io/godebos/debos:latest
       volumes:
         - /home/runner/work:/recipe
-      options: "-w /recipes --security-opt label=disabled --cap-add=SYS_PTRACE --cap-add=SYS_ADMIN"
+      options: >-
+        --security-opt label=disable
+        --cap-add=SYS_PTRACE
+        --tmpfs /scratch:exec
     steps:
-    - uses: actions/checkout@v3
-      with:
-        repository: 'cazou/cros-codecs-ci'
-#   - name: Install dependencies
-#     run: sudo apt-get install user-mode-linux
-    - name: Build rootfs
-      run: debos debos/rootfs.yaml
+      - uses: actions/checkout@v3
+        with:
+          repository: 'cazou/cros-codecs-ci'
+      - name: Create output directory
+        run: mkdir out
+      - name: Build rootfs
+        run: cd out && debos ../debos/rootfs.yaml
