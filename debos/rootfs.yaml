@@ -52,6 +52,19 @@ actions:
       - python3
       - python3-junitparser
 
+  - action: apt
+    description: Install ccdec dependencies
+    packages:
+      - libgbm1
+      - libva2
+      - libva-drm2
+      - libdrm2
+      - libwayland-server0
+      - libxcb1
+      - libxau6
+      - libxdmcp6
+      - va-driver-all
+
   - action: run
     description: Build testsuite
     chroot: true
