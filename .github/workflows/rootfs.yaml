@@ -15,7 +15,10 @@ jobs:
         - /home/runner/work:/recipe
       options: "-w /recipes --security-opt label=disabled --cap-add=SYS_PTRACE --cap-add=SYS_ADMIN"
     steps:
-#      - name: Install dependencies
-#        run: sudo apt-get install user-mode-linux
-      - name: Build rootfs
-        run: debos debos/rootfs.yaml
+    - uses: actions/checkout@v3
+      with:
+        repository: 'cazou/cros-codecs-ci'
+#   - name: Install dependencies
+#     run: sudo apt-get install user-mode-linux
+    - name: Build rootfs
+      run: debos debos/rootfs.yaml
