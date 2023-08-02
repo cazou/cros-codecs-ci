@@ -12,19 +12,12 @@ env:
 jobs:
   build-rootfs:
     runs-on: ubuntu-latest
-    container:
-      image: docker.io/godebos/debos:latest
-      options: >-
-        --security-opt label=disable
-        --cap-add=SYS_PTRACE
-        --cap-add=SYS_ADMIN
-        --device /dev/kvm
-        --tmpfs /scratch:exec
     steps:
+      - name: Install kvm deps
+      - run: sudo apt update && \
+             sudo apt install -y cpu-checker qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
       - uses: actions/checkout@v3
         with:
           repository: 'cazou/cros-codecs-ci'
-      - name: Create output directory
-        run: mkdir out
       - name: Build rootfs
-        run: cd out && debos --print-recipe -v --show-boot ../debos/rootfs.yaml
+        run: "docker run -it --rm --security-opt label=disable --cap-add=SYS_PTRACE --cap-add=SYS_ADMIN  --device /dev/kvm --tmpfs '/scratch:exec' -e TMP:'/scratch' -w /recipe -v ./:/recipe docker.io/godebos/debos:latest --print-recipe -v --show-boot debos/rootfs.yaml"
