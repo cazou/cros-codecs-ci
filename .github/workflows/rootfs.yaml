@@ -21,4 +21,4 @@ jobs:
         with:
           repository: 'cazou/cros-codecs-ci'
       - name: Build rootfs
-        run: "docker run -it --rm --security-opt label=disable --cap-add=SYS_PTRACE --cap-add=SYS_ADMIN  --device /dev/kvm --tmpfs '/scratch:exec' -e TMP:'/scratch' -w /recipe -v ./:/recipe docker.io/godebos/debos:latest --print-recipe -v --show-boot debos/rootfs.yaml"
+        run: "docker run --rm --security-opt label=disable --cap-add=SYS_PTRACE --cap-add=SYS_ADMIN  --device /dev/kvm --tmpfs '/scratch:exec' -e TMP:'/scratch' -w /recipe -v ./:/recipe docker.io/godebos/debos:latest --print-recipe -v --show-boot debos/rootfs.yaml"
