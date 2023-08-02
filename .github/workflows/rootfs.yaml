@@ -18,6 +18,7 @@ jobs:
         --security-opt label=disable
         --cap-add=SYS_PTRACE
         --cap-add=SYS_ADMIN
+        --device /dev/kvm
         --tmpfs /scratch:exec
     steps:
       - uses: actions/checkout@v3
