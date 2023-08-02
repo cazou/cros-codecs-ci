@@ -25,4 +25,4 @@ jobs:
       - name: Create output directory
         run: mkdir out
       - name: Build rootfs
-        run: cd out && debos --print-recipe -v ../debos/rootfs.yaml
+        run: cd out && debos --print-recipe -v --show-boot ../debos/rootfs.yaml
